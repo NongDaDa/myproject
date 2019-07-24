@@ -6,5 +6,7 @@ import com.project.myproject.domain.User;
 public interface UserService {
     User selectUserById(Integer userId);
     void addUser(User user);
+    void updateUserById(User user);
+    void deleteUserById(int id);
 
 }

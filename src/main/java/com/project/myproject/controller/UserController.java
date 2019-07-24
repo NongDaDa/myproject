@@ -23,4 +23,16 @@ public class UserController {
         userService.addUser(user);
         return RtnFormat.success();
     }
+
+    @PutMapping("updateUserById")
+    public RtnFormat updateUserById(@RequestBody User user){
+        userService.updateUserById(user);
+        return RtnFormat.success();
+    }
+
+    @DeleteMapping("deleteUserById")
+    public RtnFormat deleteUserById(@RequestParam(name = "id") int id){
+        userService.deleteUserById(id);
+        return RtnFormat.success();
+    }
 }
