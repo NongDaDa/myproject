@@ -1,4 +1,4 @@
-package com.project.myproject.util;
+package com.project.rest.util;
 
 public class Contanst {
     public static final Integer SUCCESS_CODE=200;

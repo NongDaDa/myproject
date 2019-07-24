@@ -1,9 +1,9 @@
-package com.project.myproject.service.impl;
+package com.project.rest.service.impl;
 
-import com.project.myproject.domain.User;
-import com.project.myproject.service.UserService;
+import com.project.rest.domain.User;
+import com.project.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.project.myproject.dao.UserDao;
+import com.project.rest.dao.UserDao;
 import org.springframework.stereotype.Service;
 
 @Service

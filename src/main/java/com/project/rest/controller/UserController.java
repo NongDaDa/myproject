@@ -1,8 +1,8 @@
-package com.project.myproject.controller;
+package com.project.rest.controller;
 
-import com.project.myproject.domain.User;
-import com.project.myproject.service.UserService;
-import com.project.myproject.util.RtnFormat;
+import com.project.rest.domain.User;
+import com.project.rest.service.UserService;
+import com.project.rest.util.RtnFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

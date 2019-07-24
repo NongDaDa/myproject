@@ -1,6 +1,6 @@
-package com.project.myproject.dao;
+package com.project.rest.dao;
 
-import com.project.myproject.domain.User;
+import com.project.rest.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

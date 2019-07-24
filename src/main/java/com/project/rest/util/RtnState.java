@@ -1,4 +1,4 @@
-package com.project.myproject.util;
+package com.project.rest.util;
 
 public enum RtnState {
     SUCCESS(Contanst.SUCCESS_CODE, Contanst.SUCCESS_MSG), FAIL(Contanst.FAIL_CODE, Contanst.FAIL_MSG);

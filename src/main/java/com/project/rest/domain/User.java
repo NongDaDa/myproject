@@ -1,4 +1,4 @@
-package com.project.myproject.domain;
+package com.project.rest.domain;
 
 public class User {
     private Integer userId;

@@ -1,7 +1,7 @@
-package com.project.myproject.service;
+package com.project.rest.service;
 
 
-import com.project.myproject.domain.User;
+import com.project.rest.domain.User;
 
 public interface UserService {
     User selectUserById(Integer userId);
