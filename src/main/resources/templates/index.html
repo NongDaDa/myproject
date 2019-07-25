@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"></meta>
     <title>Insert title here</title>
     <script type="text/javascript" src="jquery/jquery-3.2.1.min.js"></script>
 
     <script th:inline="javascript">
-    /*<![CDATA[*/  
-     $(function(){  
-        var msg = [[${msg}]];  
+    /*<![CDATA[*/
+     $(function(){
+        var msg = [[${msg}]];
         if(msg!="null"&&msg!=null&&msg!=""){
     		alert(msg);
     	}
-        
-        
-     }); 
-    /*]]>*/  
+
+
+     });
+    /*]]>*/
 
     </script>
 
