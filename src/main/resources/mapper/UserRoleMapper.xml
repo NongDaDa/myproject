@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.rest.dao.UserRoleDao">
+    <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
+    <resultMap id="BaseResultMap" type="com.project.rest.domain.UserRole">
+        <id column="ID" property="id" jdbcType="CHAR"/>
+        <result column="ROLE_ID" property="roleId" jdbcType="CHAR"/>
+        <result column="USER_ID" property="userId" jdbcType="CHAR"/>
+    </resultMap>
+
+    <select id="getAllRoleByUserId" resultMap="BaseResultMap" parameterType="String">
+        select * from user_role where user_id = #{userId}
+    </select>
+
+
+
+    <insert id="addRoleOnUser" keyProperty="id" useGeneratedKeys="true" parameterType="com.project.rest.domain.UserRole">
+        insert into user_role (ID, ROLE_ID,USER_ID) values ( #{id},#{roleId},#{userId})
+    </insert>
+
+
+
+    <delete id="deleteRoleOnUser" parameterType="String">
+        DELETE FROM user_role WHERE user_id = #{userId} and role_id = #{roleId}
+    </delete>
+
+
+</mapper>
+
