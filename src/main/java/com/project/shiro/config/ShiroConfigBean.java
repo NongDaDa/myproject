@@ -37,6 +37,7 @@ public class ShiroConfigBean {
         filterChainDefinitionMap.put("/user/*", "anon");
         //对角色的操作不需要验证
         filterChainDefinitionMap.put("/role/*", "anon");
+        filterChainDefinitionMap.put("/userRole/*", "anon");
 
 
         // src="jquery/jquery-3.2.1.min.js" 生效
