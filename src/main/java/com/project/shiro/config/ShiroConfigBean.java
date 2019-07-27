@@ -31,6 +31,14 @@ public class ShiroConfigBean {
         shiroFilterFactoryBean.setSuccessUrl("/LoginSuccess.action");
         // 未授权的页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized.action");
+
+
+        //对用户的操作不需要权限
+        filterChainDefinitionMap.put("/user/*", "anon");
+        //对角色的操作不需要验证
+        filterChainDefinitionMap.put("/role/*", "anon");
+
+
         // src="jquery/jquery-3.2.1.min.js" 生效
         filterChainDefinitionMap.put("/jquery/*", "anon");
         // 设置登录的URL为匿名访问，因为一开始没有用户验证

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.rest.dao.ShiroRoleDao">
+    <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
+    <resultMap id="BaseResultMap" type="com.project.rest.domain.ShiroRole">
+        <id column="ID" property="id" jdbcType="CHAR"/>
+        <result column="ROLE_NAME" property="roleName" jdbcType="CHAR"/>
+    </resultMap>
+
+    <select id="getAllRole" resultMap="BaseResultMap">
+        select * from shiro_role
+    </select>
+
+
+
+    <insert id="addRole" keyProperty="id" useGeneratedKeys="true" parameterType="com.project.rest.domain.ShiroRole">
+        insert into shiro_role (ID, ROLE_NAME) values ( #{id},#{roleName})
+    </insert>
+
+
+
+    <delete id="deleteRoleById" parameterType="String">
+        DELETE FROM shiro_role WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteRoleByRoleName" parameterType="String">
+        DELETE FROM shiro_role WHERE role_name = #{roleName}
+    </delete>
+
+</mapper>
+

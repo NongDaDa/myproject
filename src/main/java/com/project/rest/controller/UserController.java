@@ -18,6 +18,16 @@ public class UserController {
         return  RtnFormat.success(userService.selectUserById(id));
     }
 
+    @GetMapping("getUserByUsername")
+    public RtnFormat getUserByUsername(@RequestParam(name="username")String username){
+        return RtnFormat.success(userService.selectUserByUsername(username));
+    }
+
+    @GetMapping("getAllUser")
+    public RtnFormat getAllUser(){
+        return RtnFormat.success(userService.selectAllUser());
+    }
+
     @PostMapping("addUser")
     public RtnFormat addUser(@RequestBody User user){
         userService.addUser(user);
@@ -35,4 +45,6 @@ public class UserController {
         userService.deleteUserById(id);
         return RtnFormat.success();
     }
+
+
 }

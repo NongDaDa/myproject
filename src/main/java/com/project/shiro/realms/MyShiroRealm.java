@@ -1,18 +1,24 @@
 package com.project.shiro.realms;
 
 
-import com.project.shiro.Service.UserShiroService;
+import com.project.rest.domain.User;
+import com.project.rest.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.HashSet;
 import java.util.Set;
 
 
-public class MyShiroRealm extends  AuthorizingRealm {
+public class MyShiroRealm extends AuthorizingRealm {
+
+    @Autowired
+    private UserService userService;
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
@@ -24,19 +30,28 @@ public class MyShiroRealm extends  AuthorizingRealm {
         // 获得从表单传过来的用户名
         String username = upToken.getUsername();
 
-        // 从数据库查看是否存在用户
+       /* // 模拟从数据库查看是否存在用户
         UserShiroService userService = new UserShiroService();
-
         // 如果用户不存在，抛此异常
         if (!userService.selectUsername(username)) {
             throw new UnknownAccountException("无此用户名！");
+        }*/
+
+        // 从数据库中查询的密码
+        // Object credentials = userService.selectPassword(username);
+
+        //真正从数据库中获取数据
+        User user = userService.selectUserByUsername(username);
+        if (user == null) {
+            throw new UnknownAccountException("无此用户名！");
         }
+
 
         // 认证的实体信息，可以是username，也可以是用户的实体类对象，这里用的用户名
         Object principal = username;
-        // 从数据库中查询的密码
-        Object credentials = userService.selectPassword(username);
-        // 颜值加密的颜，可以用用户名
+
+        Object credentials = user.getUserPassword();
+        // 盐值加密的盐，这里使用username
         ByteSource credentialsSalt = ByteSource.Util.bytes(username);
         // 当前realm对象的名称，调用分类的getName()
         String realmName = this.getName();
@@ -44,6 +59,7 @@ public class MyShiroRealm extends  AuthorizingRealm {
         // 创建SimpleAuthenticationInfo对象，并且把username和password等信息封装到里面
         // 用户密码的比对是Shiro帮我们完成的
         SimpleAuthenticationInfo info = null;
+
         info = new SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName);
         return info;
     }
@@ -74,7 +90,7 @@ public class MyShiroRealm extends  AuthorizingRealm {
 //		当用户名为admin时 为用户添加权限admin  两个admin可以理解为连个字段
         if ("admin".equals(principal)) {
             roles.add("admin");
-            permissions.add("admin:query");
+            permissions.add("*:*");
         }
 //		为用户添加visit游客权限，在url中没有为visit权限，所以，所有的操作都没权限
         if ("visit".equals(principal)) {
