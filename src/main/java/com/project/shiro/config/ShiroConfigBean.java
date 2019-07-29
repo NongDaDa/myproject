@@ -1,18 +1,24 @@
 package com.project.shiro.config;
 
 
+import com.project.shiro.listener.MyListener;
+import com.project.shiro.realms.MyShiroRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import com.project.shiro.realms.MyShiroRealm;
 
 @Configuration
 public class ShiroConfigBean {
@@ -85,6 +91,8 @@ public class ShiroConfigBean {
         securityManager.setRealm(myShiroRealm());
         // 注入缓存管理器;
         securityManager.setCacheManager(ehCacheManager());
+        //注入监听器
+        securityManager.setSessionManager(SessionManager());
 
         return securityManager;
     }
@@ -123,5 +131,19 @@ public class ShiroConfigBean {
         return cacheManager;
     }
 
+
+    /**
+     *  监听器配置
+     * @return
+     */
+    @Bean
+    public DefaultWebSessionManager SessionManager(){
+        System.out.println("get shiro listener configuration");
+        DefaultWebSessionManager defaultWebSessionManager=new DefaultWebSessionManager();
+        List<SessionListener> listenersList=new ArrayList<>();
+        listenersList.add(new MyListener());
+        defaultWebSessionManager.setSessionListeners(listenersList);
+        return defaultWebSessionManager;
+    }
 
 }
