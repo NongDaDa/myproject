@@ -12,12 +12,14 @@
         select * from shiro_role
     </select>
 
+    <select id="getRoleById" resultMap="BaseResultMap"  parameterType="String">
+        select * from shiro_role where id=#{id}
+    </select>
 
 
     <insert id="addRole" keyProperty="id" useGeneratedKeys="true" parameterType="com.project.rest.domain.ShiroRole">
         insert into shiro_role (ID, ROLE_NAME) values ( #{id},#{roleName})
     </insert>
-
 
 
     <delete id="deleteRoleById" parameterType="String">

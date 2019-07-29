@@ -1,7 +1,13 @@
 package com.project.shiro.realms;
 
 
+import com.project.rest.domain.ShiroPermission;
+import com.project.rest.domain.ShiroRole;
 import com.project.rest.domain.User;
+import com.project.rest.domain.UserRole;
+import com.project.rest.service.ShiroPermissionService;
+import com.project.rest.service.ShiroRoleService;
+import com.project.rest.service.UserRoleService;
 import com.project.rest.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -11,7 +17,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -19,6 +27,15 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRoleService userRoleService;
+
+    @Autowired
+    private ShiroRoleService shiroRoleService;
+
+    @Autowired
+    private ShiroPermissionService shiroPermissionService;
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
@@ -83,20 +100,42 @@ public class MyShiroRealm extends AuthorizingRealm {
         Set<String> permissions = new HashSet<>();
 //		2018.09.14更新
         //		给用户添加user权限 (没有进行判断、对所有的用户给user权限)
-        if ("user".equals(principal)) {
+        String userId = userService.selectUserByUsername(principal.toString()).getUserId().toString();
+        List<UserRole> userRoleList = userRoleService.getAllRoleByUserId(userId);
+        List<String> roleIdList = new ArrayList<>();
+        List<String> roleNameList = new ArrayList<>();
+
+
+        //通过数据库查询并赋予角色
+        if (userRoleList != null && userRoleList.size() != 0) {
+            userRoleList.stream().forEach(userRole -> roleIdList.add(userRole.getRoleId()));
+            roleIdList.stream().forEach(roleId -> roleNameList.add(shiroRoleService.getRoleById(roleId).getRoleName()));
+            roleNameList.stream().forEach(roleNamme -> roles.add(roleNamme));
+            //roles.add();
+        }
+        for (String role : roles) {
+            System.out.println(role);
+        }
+
+        List<ShiroPermission> permissionList = shiroPermissionService.getPermissionByUserId(userId);
+        if (permissionList != null && permissionList.size() != 0) {
+            permissionList.stream().forEach(shiroPermission -> permissions.add(shiroPermission.getPermission()));
+        }
+
+    /*    if ("user".equals(principal)) {
             roles.add("user");
             permissions.add("user:query");
-        }
+        }*/
 //		当用户名为admin时 为用户添加权限admin  两个admin可以理解为连个字段
-        if ("admin".equals(principal)) {
-            roles.add("admin");
-            permissions.add("*:*");
+  /*     if ("admin".equals(principal)) {
+  //          roles.add("admin");
+            permissions.add("admin:qurey");
         }
-//		为用户添加visit游客权限，在url中没有为visit权限，所以，所有的操作都没权限
+	//	为用户添加visit游客权限，在url中没有为visit权限，所以，所有的操作都没权限
         if ("visit".equals(principal)) {
             roles.add("visit");
             permissions.add("visit:query");
-        }
+        }*/
 //              更新以上代码
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roles);
         //添加权限

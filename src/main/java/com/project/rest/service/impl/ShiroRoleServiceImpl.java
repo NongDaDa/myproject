@@ -32,4 +32,9 @@ public class ShiroRoleServiceImpl implements ShiroRoleService {
     public void deleteRoleByRoleName(String roleName) {
         shiroRoleDao.deleteRoleByRoleName(roleName);
     }
+
+    @Override
+    public ShiroRole getRoleById(String id) {
+        return shiroRoleDao.getRoleById(id);
+    }
 }

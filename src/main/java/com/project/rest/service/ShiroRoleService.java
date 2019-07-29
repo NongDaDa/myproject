@@ -9,4 +9,5 @@ public interface ShiroRoleService {
     public void addRole(ShiroRole shiroRole);
     public void deleteRoleById(String id);
     public void deleteRoleByRoleName(String roleName);
+    public  ShiroRole getRoleById(String id);
 }
