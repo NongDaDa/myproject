@@ -7,6 +7,22 @@ spring:
     servlet:
       content-type: text/html
     cache: false
+  session:
+    store-type: redis
+    timeout: 600
+    redis:
+      flush-mode:
+      namespace:
+
+  redis:
+    #redis数据库地址
+    host: localhost
+    port: 6379
+    #password: root
+    timeout: 1000
+        #redis数据库索引，默认0
+    database: 1
+
 
 
   datasource:

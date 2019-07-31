@@ -45,6 +45,7 @@ public class ShiroConfigBean {
         filterChainDefinitionMap.put("/role/*", "anon");
         filterChainDefinitionMap.put("/userRole/*", "anon");
         filterChainDefinitionMap.put("/permission/*","anon");
+        filterChainDefinitionMap.put("/session/*","anon");
 
         // src="jquery/jquery-3.2.1.min.js" 生效
         filterChainDefinitionMap.put("/jquery/*", "anon");
