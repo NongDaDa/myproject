@@ -7,11 +7,14 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class Ahandler {
     // 登录的url
     @RequestMapping({ "/login", "/" })
-    public String indexHtml() {
+    public String indexHtml(HttpSession session) {
+       // session.removeAttribute(session.getId());
         return "/index";
     }
 
