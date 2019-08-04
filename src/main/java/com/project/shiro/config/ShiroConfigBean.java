@@ -93,7 +93,7 @@ public class ShiroConfigBean {
         // 注入缓存管理器;
         securityManager.setCacheManager(ehCacheManager());
         //注入监听器
-        securityManager.setSessionManager(SessionManager());
+        //securityManager.setSessionManager(SessionManager());
 
         return securityManager;
     }
