@@ -23,7 +23,7 @@ public class LoginHandler {
     @RequestMapping("/login.action")
     public String login(String username, String password, Map<String, Object> map, HttpSession session, HttpServletRequest req) {
         System.out.println(username + "---" + password);
-        req.getSession().setAttribute("k","v");
+       // req.getSession().setAttribute("k","v");
         // 获得当前Subject
         Subject currentUser = SecurityUtils.getSubject();
         // 验证用户是否验证，即是否登录
