@@ -49,3 +49,4 @@ logging:
 
 server:
   port: 8090
+
