@@ -38,10 +38,7 @@ public class LoginHandler {
                 // 执行登录.
                 currentUser.login(token);
 
-                //登录成功保存session
-                System.out.println("123456789"+req.getSession().getId());
-
-                session.setAttribute(req.getSession().getId(),"sessionId value");
+                session.setAttribute(session.getId(), username);
 
                 // 登录成功...
                 return "redirect:/LoginSuccess.action";
